@@ -1,8 +1,9 @@
 const child_process = require('child_process')
 const stream = require('stream')
 const { v4: uuidv4 } = require('uuid')
+const fs = require('fs')
 
-class CompilerUtil {
+export class CompilerUtil {
     public static execCompileProm(params: string[], input_file_name: string): Promise<string> {
         return new Promise((resolve, reject) => {
             console.log(`spawning glslangValidator ${params.join(' ')}`);
@@ -33,7 +34,7 @@ class CompilerUtil {
 
     public static compileProm = function(source: string, language: string, stage: string): Promise<string|Buffer> {
         if (!source) {
-            throw new Error('A program source is required');
+            throw new Error('Source must be a string');
         }
 
         if (language !== 'glsl' && language !== 'hlsl') {
